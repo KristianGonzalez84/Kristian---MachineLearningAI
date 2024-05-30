@@ -1,0 +1,41 @@
+<!-- recipes.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Recipes</title>
+    <!-- Add any CSS links here -->
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+</head>
+<body>
+    <header>
+        <h1>All Recipes</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <!-- Add more navigation links as needed -->
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="recipes">
+            <h2>Recipes</h2>
+            <ul>
+                <% recipes.forEach(recipe => { %>
+                    <li>
+                        <a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a>
+                    </li>
+                <% }); %>
+            </ul>
+            <a href="/recipes/new">Add New Recipe</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Recipe System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
