@@ -1,14 +1,18 @@
+/* General styles for the page */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 body {
   display: flex;
   flex-direction: column;
+  background-color: #f4f4f4; /* Light gray background to avoid white padding issue */
 }
 
+/* Header styles */
 header {
   background-color: #333;
   color: #fff;
@@ -34,69 +38,70 @@ nav ul li a {
   text-decoration: none;
 }
 
+/* Main content area */
 main {
-  flex: 1;  /* This makes the main content area grow to take up remaining space */
-  padding: 20px;
+  flex: 1;
+  padding: 20px; /* Ensure main has padding */
+  margin: 0;
+  background-color: #fff; /* White background for the main content area */
+  box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
 }
 
+/* Hero section styles */
 .hero {
-  background-image: url('/public/images/foodWallpaper.jpg');
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: flex-start; /* Align content to the top */
+  align-items: flex-start; /* Align content to the left */
+  height: 65vh; /* 65% of the viewport height */
+  padding: 20px; /* Ensure there is padding within the hero */
+  background-image: url('/images/foodWallpaper.jpg');
   background-size: cover;
+  background-position: center;
   color: #fff;
-  padding: 165px 20px;
-  text-align: center;
+  box-sizing: border-box; /* Include padding in the element's total width and height */
+  border-radius: 5px; /* Optional: Slightly round the corners for better aesthetics */
 }
 
+/* Position the hero text */
 .hero h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
+  font-size: 40px;
+  margin-top: 60px;
 }
 
 .hero p {
-  font-size: 18px;
+  font-size: 20px;
+  margin-top: 10px;
 }
 
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
-  text-align: center;
-}
-
-/* SEARCH */
+/* Search section */
 #search-section {
-  position: absolute;
-  top: 74%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  border-radius: 8px;
-  backdrop-filter: blur(1px); /* Apply a blur effect */
-  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  margin-top: 40px; /* Space between hero text and search section */
 }
 
 #search-section p {
   margin-top: 0;
+  margin-bottom: 10px;
   font-size: 20px;
   font-weight: bold;
-  color: #ffffff; /* Dark text color */
+  color: #ffffff;
 }
 
+/* Search input and button styles */
 #search-input {
-  width: 300px; /* Adjust the width as needed */
+  width: 300px; /* Adjust width */
   padding: 8px;
   font-size: 16px;
   border: none;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
-  transition: background 0.3s ease-in-out; /* Smooth transition */
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease-in-out;
 }
 
 #search-input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.5); /* Lighter background on focus */
+  background: rgba(255, 255, 255, 0.5);
 }
 
 #search-form button {
@@ -104,11 +109,20 @@ footer {
   font-size: 16px;
   border: none;
   border-radius: 4px;
-  background-color: #3d3d3d; /* Example of button color */
+  background-color: #3d3d3d;
   color: #fff;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 #search-form button:hover {
-  background-color: #2d2d2d; /* Darker shade for hover effect */
+  background-color: #2d2d2d;
+}
+
+/* Footer styles */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
 }
