@@ -24,8 +24,8 @@
             <p>Explore a variety of mouth-watering recipes to inspire your next meal!</p>
             <!-- Search bar section -->
             <section id="search-section">
-                <form id="search-form">
-                    <input type="text" id="search-input" placeholder="Enter keywords...">
+                <form id="search-form" method="POST" action="/search">
+                    <input type="text" name="keyword" id="search-input" placeholder="Enter keywords...">
                     <button type="submit">Search</button>
                 </form>
             </section>

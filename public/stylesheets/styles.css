@@ -53,7 +53,7 @@ main {
   flex-direction: column; /* Stack elements vertically */
   justify-content: flex-start; /* Align content to the top */
   align-items: flex-start; /* Align content to the left */
-  height: 65vh; /* 65% of the viewport height */
+  height: 66vh; /* 65% of the viewport height */
   padding: 20px; /* Ensure there is padding within the hero */
   background-image: url('/images/foodWallpaper.jpg');
   background-size: cover;
