@@ -116,7 +116,24 @@ main {
 }
 
 #search-form button:hover {
-  background-color: #2d2d2d;
+  background-color: #53c045;
+}
+
+.new-recipe-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3d3d3d;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 30px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.new-recipe-button:hover {
+  background-color: #53c045;
 }
 
 /* Footer styles */
@@ -125,4 +142,129 @@ footer {
   color: #fff;
   padding: 10px 20px;
   text-align: center;
+}
+
+/* Scoped form section styles */
+.recipe-form-container {
+  max-width: 60%; /* Decreased width for more compact form */
+  width: 100%; /* Ensures it takes up the full width available within the max-width constraint */
+  margin: 20px auto; /* Centering the container */
+  padding: 8px; /* Reduced padding */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 6px; /* Slightly smaller border radius */
+  box-sizing: border-box; /* Ensures padding is included in width calculation */
+}
+
+.recipe-form-container h2 {
+  text-align: center;
+  margin-bottom: 8px; /* Reduced margin */
+  font-size: 20px; /* Slightly smaller font size */
+  color: #333;
+}
+
+.recipe-form-container .form-group {
+  margin-bottom: 8px; /* Reduced margin */
+}
+
+.recipe-form-container .form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 2px; /* Further reduced margin */
+  font-size: 14px; /* Smaller font size */
+}
+
+.recipe-form-container .form-group input,
+.recipe-form-container .form-group textarea {
+  width: 100%;
+  padding: 4px; /* Reduced padding */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px; /* Slightly smaller font size */
+}
+
+.recipe-form-container .form-group input:focus,
+.recipe-form-container .form-group textarea:focus {
+  border-color: #666;
+  outline: none;
+}
+
+.recipe-form-container button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 8px; /* Reduced padding for a smaller button */
+  background-color: #333;
+  color: #000000;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px; /* Slightly smaller font size */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.recipe-form-container button[type="submit"]:hover {
+  background-color: #53c045;
+}
+
+/* Scoped form section styles within hero */
+.hero .recipe-form-container {
+  max-width: 60%; /* Decreased width for more compact form */
+  width: 100%; /* Ensures it takes up the full width available within the max-width constraint */
+  margin: 0px auto; /* Centering the container */
+  padding: 8px; /* Reduced padding */
+  background-color: rgba(255, 255, 255, 0.); /* Semi-transparent background */
+  box-shadow: 0 2px 8px rgba(196, 196, 196, 0.1);
+  border-radius: 6px; /* Slightly smaller border radius */
+  box-sizing: border-box; /* Ensures padding is included in width calculation */
+}
+
+.hero .recipe-form-container h2 {
+  text-align: center;
+  margin-bottom: 8px; /* Reduced margin */
+  font-size: 18px; /* Slightly smaller font size */
+  color: #ffffff;
+}
+
+.hero .recipe-form-container .form-group {
+  margin-bottom: 8px; /* Reduced margin */
+}
+
+.hero .recipe-form-container .form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 2px; /* Further reduced margin */
+  font-size: 14px; /* Smaller font size */
+}
+
+.hero .recipe-form-container .form-group input,
+.hero .recipe-form-container .form-group textarea {
+  width: 100%;
+  padding: 4px; /* Reduced padding */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px; /* Slightly smaller font size */
+}
+
+.hero .recipe-form-container .form-group input:focus,
+.hero .recipe-form-container .form-group textarea:focus {
+  border-color: #666;
+  outline: none;
+}
+
+.hero .recipe-form-container button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 8px; /* Reduced padding for a smaller button */
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px; /* Slightly smaller font size */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hero .recipe-form-container button[type="submit"]:hover {
+  background-color: #53c045;
 }

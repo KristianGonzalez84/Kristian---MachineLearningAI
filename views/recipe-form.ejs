@@ -3,25 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Form</title>
-    <!-- Add any CSS links here -->
+    <title>Add New Recipe</title>
     <link rel="stylesheet" href="/stylesheets/styles.css">
 </head>
 <body>
     <header>
-        <h1>Recipe Form</h1>
+        <h1>Add New Recipe</h1>
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/recipes">Recipes</a></li>
-                <!-- Add more navigation links as needed -->
+                <li><a href="/profile">Profile</a></li>
             </ul>
         </nav>
     </header>
     
     <main>
-        <section class="recipe-form">
-            <!-- Add form elements for adding/editing a recipe -->
+        <section class="hero">
+            <div class="recipe-form-container">
+                <h2>New Recipe Details</h2>
+                <form action="/recipes/new" method="POST">
+                    <div class="form-group">
+                        <label for="title">Recipe Title</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ingredients">Ingredients</label>
+                        <textarea id="ingredients" name="ingredients" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="steps">Steps</label>
+                        <textarea id="steps" name="steps" rows="5" required></textarea>
+                    </div>
+                    <button type="submit">Add Recipe</button>
+                </form>
+            </div>
         </section>
     </main>
 

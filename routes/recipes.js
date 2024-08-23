@@ -14,6 +14,23 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Route to display the form to add a new recipe
+router.get('/new', (req, res) => {
+    res.render('recipe-form', { recipe: null });
+});
+
+// Route to handle the form submission for adding a new recipe
+router.post('/new', async (req, res, next) => {
+    try {
+        const { title, ingredients, steps } = req.body;
+        await Recipe.create({ title, ingredients, steps });
+        res.redirect('/recipes');
+    } catch (error) {
+        console.error('Error creating recipe:', error);
+        res.status(500).send('Error creating recipe');
+    }
+});
+
 // Route to display a specific recipe
 router.get('/:id', async (req, res) => {
     try {
@@ -30,11 +47,6 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Route to display the form to add a new recipe
-router.get('/new', (req, res) => {
-    res.render('recipe-form', { recipe: null });
-});
-
 // Route to display the form to edit an existing recipe
 router.get('/:id/edit', async (req, res) => {
     try {
@@ -48,18 +60,6 @@ router.get('/:id/edit', async (req, res) => {
     } catch (error) {
         console.error('Error fetching recipe for edit:', error);
         res.status(500).send('Error fetching recipe for edit');
-    }
-});
-
-// Route to handle the form submission for adding a new recipe
-router.post('/new', async (req, res) => {
-    try {
-        const { title, ingredients, steps } = req.body;
-        await Recipe.create({ title, ingredients, steps });
-        res.redirect('/recipes');
-    } catch (error) {
-        console.error('Error creating recipe:', error);
-        res.status(500).send('Error creating recipe');
     }
 });
 
