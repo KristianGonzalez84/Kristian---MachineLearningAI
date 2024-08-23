@@ -19,9 +19,4 @@ router.get('/recipes', async function(req, res, next) {
   res.render('recipes', { title: 'Recipes', recipes: recipes });
 });
 
-// Render the profile page
-router.get('/profile', function(req, res, next) {
-  res.render('profile', { title: 'Profile' });
-});
-
 module.exports = router;

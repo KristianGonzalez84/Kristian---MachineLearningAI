@@ -6,9 +6,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 const recipesRouter = require('./routes/recipes');
 const searchRouter = require('./routes/search');
+const registerRouter = require('./routes/register');
+const loginRouter = require('./routes/login');
+
 
 var db = require('./models');
 console.log('Synchronizing database...');
@@ -33,9 +35,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/recipes', recipesRouter);
 app.use('/search', searchRouter);
+app.use('/register', registerRouter);
+app.use('/login', loginRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
