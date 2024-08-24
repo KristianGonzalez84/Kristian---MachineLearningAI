@@ -1,15 +1,13 @@
-/* General styles for the page */
-html, body {
-  height: 100%;
+/* General body styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-body {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f4f4f4; /* Light gray background to avoid white padding issue */
 }
 
 /* Header styles */
@@ -142,68 +140,6 @@ footer {
   color: #fff;
   padding: 10px 20px;
   text-align: center;
-}
-
-/* Scoped form section styles */
-.recipe-form-container {
-  max-width: 60%; /* Decreased width for more compact form */
-  width: 100%; /* Ensures it takes up the full width available within the max-width constraint */
-  margin: 20px auto; /* Centering the container */
-  padding: 8px; /* Reduced padding */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 6px; /* Slightly smaller border radius */
-  box-sizing: border-box; /* Ensures padding is included in width calculation */
-}
-
-.recipe-form-container h2 {
-  text-align: center;
-  margin-bottom: 8px; /* Reduced margin */
-  font-size: 20px; /* Slightly smaller font size */
-  color: #333;
-}
-
-.recipe-form-container .form-group {
-  margin-bottom: 8px; /* Reduced margin */
-}
-
-.recipe-form-container .form-group label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 2px; /* Further reduced margin */
-  font-size: 14px; /* Smaller font size */
-}
-
-.recipe-form-container .form-group input,
-.recipe-form-container .form-group textarea {
-  width: 100%;
-  padding: 4px; /* Reduced padding */
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  font-size: 14px; /* Slightly smaller font size */
-}
-
-.recipe-form-container .form-group input:focus,
-.recipe-form-container .form-group textarea:focus {
-  border-color: #666;
-  outline: none;
-}
-
-.recipe-form-container button[type="submit"] {
-  display: block;
-  width: 100%;
-  padding: 8px; /* Reduced padding for a smaller button */
-  background-color: #333;
-  color: #000000;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px; /* Slightly smaller font size */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.recipe-form-container button[type="submit"]:hover {
-  background-color: #53c045;
 }
 
 /* Scoped form section styles within hero */
