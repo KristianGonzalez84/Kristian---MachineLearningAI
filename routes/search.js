@@ -1,25 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models');
-const Recipe = db.Recipe;
+const searchService = require('../services/searchService');
 
-router.get('/', async function(req, res, next) {
-    res.render('search');
+// Render the search page
+router.get('/', (req, res) => {
+    res.render('search', { recipes: [], error: null, user: req.session.user });
 });
 
-router.post('/', async function(req, res, next) {
-    const keyword = req.body.keyword;
+// Handle search functionality
+router.post('/', async (req, res) => {
+    const keyword = req.body.keyword.trim(); // Trim whitespace
+
+    // Basic validation
+    if (!keyword) {
+        return res.render('search', { recipes: [], error: 'Search keyword cannot be empty', user: req.session.user });
+    }
+
     try {
-        const recipes = await db.Recipe.findAll({
-            where: {
-                title: {
-                    [db.Sequelize.Op.like]: '%' + keyword + '%'
-                }
-            }
-        });
-        res.render('search', { recipes }); // Rendering search.ejs with search results
+        // Use search service to fetch recipes
+        const recipes = await searchService.searchRecipes(keyword);
+        res.render('search', { recipes, error: null, user: req.session.user });
     } catch (error) {
-        console.error(error);
+        console.error('Error during search:', error);
         res.status(500).send('Internal Server Error');
     }
 });

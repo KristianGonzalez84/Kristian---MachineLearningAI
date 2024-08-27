@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const userService = require('../services/userService');
 
-// Show the login form
+// Render the login page
 router.get('/', (req, res) => {
-    res.render('login', { error: null });
+    res.render('login', { user: req.session.user, error: null });
 });
 
 // Handle login form submission
 router.post('/', async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    // Assume you have some login logic here
-    const user = await authenticateUser(email, password); // Example function
-
-    if (user) {
-        // User is authenticated, redirect to their profile
+    try {
+        const user = await userService.authenticateUser(username, password);
+        req.session.userId = user.id;
+        req.session.user = user; // Storing the full user object in the session for consistent access
         res.redirect('/profile');
-    } else {
-        // Authentication failed, re-render the login page with an error message
-        res.render('login', { error: 'Invalid email or password.' });
+    } catch (error) {
+        console.log('Login Error:', error.message); // Log login error
+        res.render('login', { user: null, error: 'Invalid username or password' });
     }
 });
 

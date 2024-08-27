@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Recipe System</title>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/navbar.css">
+</head>
+<body>
+    <!-- Include the navbar partial -->
+    <%- include('partials/navbar') %>
+    
+    <main>
+        <% if (!user) { %> <!-- If the user is not logged in, show the login form -->
+            <section class="login-form">
+                <% if (error) { %>
+                    <p class="error"><%= error %></p>
+                <% } %>
+                <form action="/profile" method="POST">
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="button">Login</button>
+                </form>
+            </section>
+        <% } else { %> <!-- If the user is logged in, show the profile -->
+            <section class="profile-info">
+                <h2>Welcome, <%= user.name %></h2>
+                <% if (user.profilePicture) { %>
+                    <img src="<%= user.profilePicture %>" alt="Profile Picture" class="profile-picture">
+                <% } else { %>
+                    <img src="/images/default-profile.png" alt="Default Profile Picture" class="profile-picture">
+                <% } %>
+                <a href="/profile/edit" class="button">Edit Profile</a>
+            </section>
+
+            <section class="favorites">
+                <h2>Your Favorite Recipes</h2>
+                <ul>
+                    <% if (favorites && favorites.length > 0) { %>
+                        <% favorites.forEach(recipe => { %>
+                            <li><a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a></li>
+                        <% }); %>
+                    <% } else { %>
+                        <li>You have no favorite recipes.</li>
+                    <% } %>
+                </ul>
+            </section>
+
+            <section class="recent-activity">
+                <h2>Recent Activity</h2>
+                <ul>
+                    <% if (recentActivities && recentActivities.length > 0) { %>
+                        <% recentActivities.forEach(activity => { %>
+                            <li><%= activity %></li>
+                        <% }); %>
+                    <% } else { %>
+                        <li>No recent activity.</li>
+                    <% } %>
+                </ul>
+            </section>
+        <% } %>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Recipe System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -4,17 +4,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 const recipesRouter = require('./routes/recipes');
 const searchRouter = require('./routes/search');
 const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login');
+const profileRouter = require('./routes/profile');
+const logoutRouter = require('./routes/logout');
 
 
 var db = require('./models');
 console.log('Synchronizing database...');
-db.sequelize.sync({ force: false })
+db.sequelize.sync({ alter: true })
   .then(() => {
     console.log('Database & tables created!');
   })
@@ -34,12 +37,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Set to true if using HTTPS
+}));
+
 app.use('/', indexRouter);
 app.use('/recipes', recipesRouter);
 app.use('/search', searchRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
-
+app.use('/profile', profileRouter);
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

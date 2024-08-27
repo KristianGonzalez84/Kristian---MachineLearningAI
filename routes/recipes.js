@@ -1,33 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models');
-const Recipe = db.Recipe;
+const recipeService = require('../services/recipeService');
 
-// Route to display all recipes
-router.get('/', async (req, res) => {
-    try {
-        const recipes = await Recipe.findAll();
-        res.render('recipes', { recipes });
-    } catch (error) {
-        console.error('Error fetching recipes:', error);
-        res.status(500).send('Error fetching recipes');
-    }
-});
-
-// Route to display the form to add a new recipe
+// Render the form to add a new recipe
 router.get('/new', (req, res) => {
-    res.render('recipe-form', { recipe: null });
+    res.render('recipe-form', { user: req.session.user }); // Render the form to add a new recipe
 });
 
-// Route to handle the form submission for adding a new recipe
-router.post('/new', async (req, res, next) => {
+// Handle the form submission to add a new recipe
+router.post('/new', async (req, res) => {
+    const { title, ingredients, steps } = req.body;
+
     try {
-        const { title, ingredients, steps } = req.body;
-        await Recipe.create({ title, ingredients, steps });
-        res.redirect('/recipes');
+        // Use the recipeService to create a new recipe
+        await recipeService.createRecipe(title, ingredients, steps);
+        res.redirect('/recipes'); // Redirect to the list of recipes after adding a new one
     } catch (error) {
-        console.error('Error creating recipe:', error);
-        res.status(500).send('Error creating recipe');
+        console.error('Error adding recipe:', error);
+        res.status(500).send('Internal Server Error');
     }
 });
 
@@ -35,9 +25,9 @@ router.post('/new', async (req, res, next) => {
 router.get('/:id', async (req, res) => {
     try {
         const recipeId = req.params.id;
-        const recipe = await Recipe.findByPk(recipeId);
+        const recipe = await recipeService.getRecipeById(recipeId);
         if (recipe) {
-            res.render('recipe-details', { recipe });
+            res.render('recipe-details', { recipe, user: req.session.user  });
         } else {
             res.status(404).send('Recipe not found');
         }
@@ -47,57 +37,31 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Route to display the form to edit an existing recipe
-router.get('/:id/edit', async (req, res) => {
-    try {
-        const recipeId = req.params.id;
-        const recipe = await Recipe.findByPk(recipeId);
-        if (recipe) {
-            res.render('recipe-form', { recipe });
-        } else {
-            res.status(404).send('Recipe not found');
-        }
-    } catch (error) {
-        console.error('Error fetching recipe for edit:', error);
-        res.status(500).send('Error fetching recipe for edit');
-    }
-});
-
-// Route to handle the form submission for editing an existing recipe
-router.post('/:id/edit', async (req, res) => {
+// PUT /recipes/:id - Update an existing recipe by ID
+router.put('/:id', async (req, res) => {
     try {
         const recipeId = req.params.id;
         const { title, ingredients, steps } = req.body;
-        const recipe = await Recipe.findByPk(recipeId);
-        if (recipe) {
-            recipe.title = title;
-            recipe.ingredients = ingredients;
-            recipe.steps = steps;
-            await recipe.save();
-            res.redirect('/recipes');
-        } else {
-            res.status(404).send('Recipe not found');
+        if (!title || !ingredients || !steps) {
+            return res.status(400).json({ error: 'Missing required fields' });
         }
+        const updatedRecipe = await recipeService.updateRecipe(recipeId, title, ingredients, steps);
+        res.status(200).json(updatedRecipe);
     } catch (error) {
         console.error('Error updating recipe:', error);
-        res.status(500).send('Error updating recipe');
+        res.status(500).json({ error: 'Error updating recipe' });
     }
 });
 
-// Route to handle deleting a recipe
-router.post('/:id/delete', async (req, res) => {
+// DELETE /recipes/:id - Soft delete a recipe by ID
+router.delete('/:id', async (req, res) => {
     try {
         const recipeId = req.params.id;
-        const recipe = await Recipe.findByPk(recipeId);
-        if (recipe) {
-            await recipe.destroy();
-            res.redirect('/recipes');
-        } else {
-            res.status(404).send('Recipe not found');
-        }
+        await recipeService.deleteRecipe(recipeId);
+        res.status(200).json({ message: 'Recipe deleted successfully' });
     } catch (error) {
         console.error('Error deleting recipe:', error);
-        res.status(500).send('Error deleting recipe');
+        res.status(500).json({ error: 'Error deleting recipe' });
     }
 });
 

@@ -37,4 +37,16 @@ fs.readdirSync(__dirname)
     db[model.name] = model;
   });
 
+// Define model associations
+const { User, Recipe, Favorite, RecentActivity } = db;
+
+User.hasMany(Favorite, { foreignKey: 'userId' });
+Favorite.belongsTo(User, { foreignKey: 'userId' });
+
+User.hasMany(RecentActivity, { foreignKey: 'userId' });
+RecentActivity.belongsTo(User, { foreignKey: 'userId' });
+
+Recipe.hasMany(Favorite, { foreignKey: 'recipeId' });
+Favorite.belongsTo(Recipe, { foreignKey: 'recipeId' });
+
 module.exports = db;

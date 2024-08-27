@@ -1,61 +1,70 @@
 const db = require('../models');
 
 const recipeService = {
+    // Get all recipes that are not marked as deleted
     getAllRecipes: async () => {
         try {
-            return await db.Recipe.findAll();
+            return await db.Recipe.findAll({ where: { is_deleted: false } });
         } catch (error) {
             console.error('Error fetching recipes:', error);
-            throw error;
+            throw new Error('Unable to fetch recipes');
         }
     },
 
-    getRecipeById: async (id) => {
+    // Get a single recipe by ID if it's not marked as deleted
+    getRecipeById: async (recipeId) => {
         try {
-            return await db.Recipe.findByPk(id);
+            const recipe = await db.Recipe.findOne({ where: { id: recipeId, is_deleted: false } });
+            if (!recipe) {
+                throw new Error('Recipe not found');
+            }
+            return recipe;
         } catch (error) {
-            console.error('Error fetching recipe by id:', error);
-            throw error;
+            console.error(`Error fetching recipe with ID ${recipeId}:`, error);
+            throw new Error('Unable to fetch recipe');
         }
     },
 
+    // Create a new recipe
     createRecipe: async (title, ingredients, steps) => {
         try {
-            return await db.Recipe.create({ title, ingredients, steps });
+            const newRecipe = await db.Recipe.create({ title, ingredients, steps });
+            return newRecipe;
         } catch (error) {
             console.error('Error creating recipe:', error);
-            throw error;
+            throw new Error('Unable to create recipe');
         }
     },
 
-    updateRecipe: async (id, title, ingredients, steps) => {
+    // Update an existing recipe
+    updateRecipe: async (recipeId, title, ingredients, steps) => {
         try {
-            const recipe = await db.Recipe.findByPk(id);
-            if (recipe) {
-                recipe.title = title;
-                recipe.ingredients = ingredients;
-                recipe.steps = steps;
-                return await recipe.save();
-            } else {
-                throw new Error('Recipe not found');
+            const recipe = await db.Recipe.findByPk(recipeId);
+            if (!recipe || recipe.is_deleted) {
+                throw new Error('Recipe not found or is deleted');
             }
+            recipe.title = title;
+            recipe.ingredients = ingredients;
+            recipe.steps = steps;
+            return await recipe.save();
         } catch (error) {
-            console.error('Error updating recipe:', error);
-            throw error;
+            console.error(`Error updating recipe with ID ${recipeId}:`, error);
+            throw new Error('Unable to update recipe');
         }
     },
 
-    deleteRecipe: async (id) => {
+    // Soft delete a recipe by marking it as deleted
+    deleteRecipe: async (recipeId) => {
         try {
-            const recipe = await db.Recipe.findByPk(id);
-            if (recipe) {
-                return await recipe.destroy();
-            } else {
+            const recipe = await db.Recipe.findByPk(recipeId);
+            if (!recipe) {
                 throw new Error('Recipe not found');
             }
+            recipe.is_deleted = true;
+            return await recipe.save();
         } catch (error) {
-            console.error('Error deleting recipe:', error);
-            throw error;
+            console.error(`Error deleting recipe with ID ${recipeId}:`, error);
+            throw new Error('Unable to delete recipe');
         }
     }
 };

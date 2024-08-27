@@ -1,37 +1,30 @@
-/* General body styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
 /* Header styling */
 header {
     width: 100%;
     background-color: #333;
-    padding: 10px 20px;
+    padding: 15px 30px; /* Increased padding for a bigger header */
     color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Space between heading and nav */
     align-items: center;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    height: 65px; /* Adjust height if needed */
 }
 
-/* Heading styling */
+/* Heading styling inside the header */
 header h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 30px; 
+    color: orange;
 }
 
 /* Navigation styling */
 header nav {
     display: flex;
+    align-items: center; /* Center-align items vertically */
 }
 
+/* Unordered list styling */
 header nav ul {
     list-style: none;
     padding: 0;
@@ -39,30 +32,36 @@ header nav ul {
     display: flex;
 }
 
+/* List item styling */
 header nav ul li {
-    margin: 0 15px;
+    margin: 0 20px; /* Increased spacing between navigation items */
 }
 
+/* Link styling */
 header nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    padding: 5px 10px;
+    padding: 10px 15px; /* Increased padding for larger clickable area */
     transition: background-color 0.3s, color 0.3s;
+    font-size: 18px; /* Increased font size for links */
 }
 
+/* Hover effect for links */
 header nav ul li a:hover {
     background-color: orange;
     color: black;
-    border-radius: 5px; /* Optional: for rounded button effect */
+    border-radius: 5px;
 }
 
-/* Footer styling */
+/* Footer styles */
 footer {
-    width: 100%;
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 10px 20px;
+    padding: 5px 10px;
     font-size: 14px;
-}
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: auto;
+  }

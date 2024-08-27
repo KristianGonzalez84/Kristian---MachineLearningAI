@@ -11,6 +11,10 @@ module.exports = (sequelize, Sequelize) => {
         steps: {
             type: Sequelize.DataTypes.TEXT,
             allowNull: false
+        },
+        is_deleted: {
+            type: Sequelize.DataTypes.BOOLEAN,
+            defaultValue: false
         }
     }, {
         timestamps: false
