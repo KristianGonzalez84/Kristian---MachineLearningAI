@@ -1,0 +1,113 @@
+body.profile-page {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hero Section */
+.profile-page .hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 83vh; /* Adjust height to account for padding */
+    padding-top: 5px; /* Keep top padding at 5px */
+    padding-bottom: 5px; /* Keep bottom padding at 5px */
+    background-image: url('/images/foodWallpaper.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    box-sizing: border-box;
+    max-width: 100vw; /* Ensure hero section doesn’t exceed viewport width */
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* Hero Content */
+.profile-page .hero-content {
+    position: relative;
+    z-index: 2; /* Ensure content sits above background */
+    text-align: center;
+    margin-top: 50px;
+}
+
+.profile-page .hero h1 {
+    margin-top: 10px;
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Profile Cards Layout */
+.profile-page .profile-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px; /* Move the cards further down */
+    color: #333;
+    position: relative;
+    top: 0; /* No upward adjustment */
+}
+
+.profile-page .profile-card {
+    flex: 1;
+    max-width: 45%;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.profile-page .profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Profile List */
+.profile-page .profile-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.profile-page .profile-list li.profile-list-item {
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.profile-page .profile-list li.profile-list-item:hover {
+    background-color: orange;
+    transform: translateY(-2px);
+}
+
+.profile-page .profile-list li.profile-list-item a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.profile-page .profile-list li.profile-list-item a:hover {
+    text-decoration: underline;
+}
+
+.todays-recommendations-card {
+    flex: 1;
+    max-width: 45%;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    margin-top: 20px;
+}
+
+.todays-recommendations-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+}

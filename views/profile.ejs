@@ -6,63 +6,48 @@
     <title>User Profile - Recipe System</title>
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/navbar.css">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
 </head>
-<body>
+<body class="profile-page">
     <!-- Include the navbar partial -->
     <%- include('partials/navbar') %>
-    
-    <main>
-        <% if (!user) { %> <!-- If the user is not logged in, show the login form -->
-            <section class="login-form">
-                <% if (error) { %>
-                    <p class="error"><%= error %></p>
-                <% } %>
-                <form action="/profile" method="POST">
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <button type="submit" class="button">Login</button>
-                </form>
-            </section>
-        <% } else { %> <!-- If the user is logged in, show the profile -->
-            <section class="profile-info">
-                <h2>Welcome, <%= user.name %></h2>
-                <% if (user.profilePicture) { %>
-                    <img src="<%= user.profilePicture %>" alt="Profile Picture" class="profile-picture">
-                <% } else { %>
-                    <img src="/images/default-profile.png" alt="Default Profile Picture" class="profile-picture">
-                <% } %>
-                <a href="/profile/edit" class="button">Edit Profile</a>
-            </section>
 
-            <section class="favorites">
-                <h2>Your Favorite Recipes</h2>
-                <ul>
-                    <% if (favorites && favorites.length > 0) { %>
-                        <% favorites.forEach(recipe => { %>
-                            <li><a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a></li>
-                        <% }); %>
-                    <% } else { %>
-                        <li>You have no favorite recipes.</li>
-                    <% } %>
-                </ul>
-            </section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome, <%= user.name %>!</h1>
+            <p class="hero-subtext">Discover your favorite recipes and track your recent activities!</p>
 
-            <section class="recent-activity">
-                <h2>Recent Activity</h2>
-                <ul>
-                    <% if (recentActivities && recentActivities.length > 0) { %>
-                        <% recentActivities.forEach(activity => { %>
-                            <li><%= activity %></li>
-                        <% }); %>
-                    <% } else { %>
-                        <li>No recent activity.</li>
-                    <% } %>
-                </ul>
-            </section>
-        <% } %>
-    </main>
+            <!-- Profile Cards inside Hero Section -->
+            <div class="profile-cards">
+                <section class="profile-card favorite-recipes-card">
+                    <h2>Your Favorite Recipes</h2>
+                    <ul class="profile-list">
+                        <% if (favorites && favorites.length > 0) { %>
+                            <% favorites.forEach(recipe => { %>
+                                <li class="profile-list-item"><a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a></li>
+                            <% }); %>
+                        <% } else { %>
+                            <li class="profile-list-item">You have no favorite recipes.</li>
+                        <% } %>
+                    </ul>
+                </section>
+
+                <section class="profile-card recent-activity-card">
+                    <h2>Recent Activity</h2>
+                    <ul class="profile-list">
+                        <% if (recentActivities && recentActivities.length > 0) { %>
+                            <% recentActivities.forEach(activity => { %>
+                                <li class="profile-list-item"><%= activity %></li>
+                            <% }); %>
+                        <% } else { %>
+                            <li class="profile-list-item">No recent activity.</li>
+                        <% } %>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <p>&copy; 2024 Recipe System. All rights reserved.</p>

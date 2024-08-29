@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
+const cron = require('node-cron');
 
 var indexRouter = require('./routes/index');
 const recipesRouter = require('./routes/recipes');
@@ -12,14 +13,24 @@ const searchRouter = require('./routes/search');
 const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login');
 const profileRouter = require('./routes/profile');
+const todaysRecommendationsRoutes = require('./routes/todaysRecommendations');
 const logoutRouter = require('./routes/logout');
 
+// Import the recommendation service
+const generateAndSaveRecommendations = require('./services/recommendationService');
 
 var db = require('./models');
 console.log('Synchronizing database...');
 db.sequelize.sync({ alter: true })
   .then(() => {
     console.log('Database & tables created!');
+    
+    // Schedule the cron job to generate and save daily recommendations at midnight
+    cron.schedule('0 0 * * *', async () => {
+      await generateAndSaveRecommendations();
+      console.log('Daily recommendations generated and saved.');
+    });
+
   })
   .catch(err => {
     console.error('Unable to sync database:', err);
@@ -50,6 +61,7 @@ app.use('/search', searchRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
+app.use('/todays-recommendations', todaysRecommendationsRoutes);
 app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
