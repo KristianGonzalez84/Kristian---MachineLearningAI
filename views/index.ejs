@@ -6,15 +6,17 @@
     <title>Recipe System</title>
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/navbar.css">
+    <link rel="stylesheet" href="/stylesheets/background.css"> <!-- Add this line -->
 </head>
 <body>
     <!-- Include the navbar partial -->
     <%- include('partials/navbar') %>
-    
+
     <main>
-        <section class="hero">
+        <!-- Apply the background class to this section -->
+        <section class="background">
             <h2>Discover Delicious Recipes</h2>
-            <p>Explore a variety of mouth-watering recipes to inspire your next meal!!</p>
+            <p>Explore a variety of mouth-watering recipes to inspire your next meal!</p>
             <!-- Search bar section -->
             <section id="search-section">
                 <form id="search-form" method="POST" action="/search">

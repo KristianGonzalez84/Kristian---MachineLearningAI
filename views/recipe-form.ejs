@@ -7,13 +7,15 @@
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/navbar.css">
     <link rel="stylesheet" href="/stylesheets/recipe-form.css">
+    <link rel="stylesheet" href="/stylesheets/background.css"> <!-- Include the background.css stylesheet -->
 </head>
 <body>
     <!-- Include the navbar partial -->
     <%- include('partials/navbar') %>
-    
+
     <main>
-        <section class="hero">
+        <!-- Apply the background class to this section -->
+        <section class="gradient-background">
             <div class="recipe-form-container">
                 <h2>New Recipe Details</h2>
                 <form action="/recipes/new" method="POST">
@@ -23,18 +25,17 @@
                     </div>
                     <div class="form-group">
                         <label for="ingredients">Ingredients</label>
-                        <textarea id="ingredients" name="ingredients" rows="5" required></textarea>
+                        <textarea id="ingredients" name="ingredients" required></textarea>
                     </div>
                     <div class="form-group">
                         <label for="steps">Steps</label>
-                        <textarea id="steps" name="steps" rows="5" required></textarea>
+                        <textarea id="steps" name="steps" required></textarea>
                     </div>
                     <button type="submit">Add Recipe</button>
                 </form>
             </div>
         </section>
     </main>
-
     <footer>
         <p>&copy; 2024 Recipe System. All rights reserved.</p>
     </footer>

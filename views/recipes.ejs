@@ -1,5 +1,3 @@
-<!-- recipes.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,22 +7,26 @@
     <!-- Add any CSS links here -->
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/navbar.css">
+    <link rel="stylesheet" href="/stylesheets/background.css"> 
 </head>
 <body>
     <!-- Include the navbar partial -->
     <%- include('partials/navbar') %>
     
     <main>
-        <section class="recipes">
-            <h2>Recipes</h2>
-            <ul>
-                <% recipes.forEach(recipe => { %>
-                    <li>
-                        <a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a>
-                    </li>
-                <% }); %>
-            </ul>
-            <a href="/recipes/new" class="new-recipe-button">Add New Recipe</a>
+        <!-- Apply the gradient background class here -->
+        <section class="gradient-background">
+            <div class="recipes-container">
+                <h2>Recipes</h2>
+                <ul>
+                    <% recipes.forEach(recipe => { %>
+                        <li>
+                            <a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a>
+                        </li>
+                    <% }); %>
+                </ul>
+                <a href="/recipes/new" class="new-recipe-button">Add New Recipe</a>
+            </div>
         </section>
     </main>
 

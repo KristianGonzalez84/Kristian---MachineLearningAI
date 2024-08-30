@@ -1,0 +1,51 @@
+/* Background Styles */
+.background {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 83vh;
+    padding: 20px;
+    background-image: url('/images/foodWallpaper.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    box-sizing: border-box;
+    max-width: 100vw; /* Ensure section doesn’t exceed viewport width */
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* Gradient Background Styles */
+.gradient-background {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 83vh;
+    padding: 20px;
+    background: linear-gradient(to right, black 30%, transparent 90%), url('/images/foodWallpaper.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    box-sizing: border-box;
+    max-width: 100vw; /* Ensure section doesn’t exceed viewport width */
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* Profile ONLY background */
+.profile-background {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 83vh;
+    padding: 20px;
+    background-image: url('/images/foodWallpaper.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow: hidden;
+    height: 30vh; /* Adjust the height as needed */
+}

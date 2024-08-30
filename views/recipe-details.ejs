@@ -7,16 +7,20 @@
     <!-- Add any CSS links here -->
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/navbar.css">
+    <link rel="stylesheet" href="/stylesheets/background.css"> <!-- Include the background.css stylesheet -->
 </head>
 <body>
     <!-- Include the navbar partial -->
     <%- include('partials/navbar') %>
-    
+
     <main>
-        <section class="recipe-details">
-            <h2><%= recipe.title %></h2>
-            <p>Ingredients: <%= recipe.ingredients %></p>
-            <p>Steps: <%= recipe.steps %></p>
+        <!-- Apply the gradient background class here -->
+        <section class="gradient-background">
+            <div class="recipe-details-container">
+                <h2><%= recipe.title %></h2>
+                <p>Ingredients: <%= recipe.ingredients %></p>
+                <p>Steps: <%= recipe.steps %></p>
+            </div>
         </section>
     </main>
 

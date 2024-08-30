@@ -9,6 +9,7 @@
     text-align: center;
     margin: auto; /* Center horizontally within its container */
     margin-top: 80px; /* Adjust this to position below the header */
+    color: black;
 }
 
 /* Input field styling */

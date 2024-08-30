@@ -7,48 +7,65 @@
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/navbar.css">
     <link rel="stylesheet" href="/stylesheets/profile.css">
+    <link rel="stylesheet" href="/stylesheets/background.css"> <!-- Add this line -->
 </head>
 <body class="profile-page">
     <!-- Include the navbar partial -->
     <%- include('partials/navbar') %>
 
+    <main>
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="profile-background">
         <div class="hero-content">
             <h1>Welcome, <%= user.name %>!</h1>
             <p class="hero-subtext">Discover your favorite recipes and track your recent activities!</p>
-
-            <!-- Profile Cards inside Hero Section -->
-            <div class="profile-cards">
-                <section class="profile-card favorite-recipes-card">
-                    <h2>Your Favorite Recipes</h2>
-                    <ul class="profile-list">
-                        <% if (favorites && favorites.length > 0) { %>
-                            <% favorites.forEach(recipe => { %>
-                                <li class="profile-list-item"><a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a></li>
-                            <% }); %>
-                        <% } else { %>
-                            <li class="profile-list-item">You have no favorite recipes.</li>
-                        <% } %>
-                    </ul>
-                </section>
-
-                <section class="profile-card recent-activity-card">
-                    <h2>Recent Activity</h2>
-                    <ul class="profile-list">
-                        <% if (recentActivities && recentActivities.length > 0) { %>
-                            <% recentActivities.forEach(activity => { %>
-                                <li class="profile-list-item"><%= activity %></li>
-                            <% }); %>
-                        <% } else { %>
-                            <li class="profile-list-item">No recent activity.</li>
-                        <% } %>
-                    </ul>
-                </section>
-            </div>
         </div>
     </section>
 
+    <!-- Profile Cards Layout -->
+    <section class="profile-cards">
+        <section class="profile-card favorite-recipes-card">
+            <h2>Your Favorite Recipes</h2>
+            <ul class="profile-list">
+                <% if (favorites && favorites.length > 0) { %>
+                    <% favorites.forEach(recipe => { %>
+                        <li class="profile-list-item"><a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a></li>
+                    <% }); %>
+                <% } else { %>
+                    <li class="profile-list-item">You have no favorite recipes.</li>
+                <% } %>
+            </ul>
+        </section>
+
+        <section class="profile-card recent-activity-card">
+            <h2>Recent Activity</h2>
+            <ul class="profile-list">
+                <% if (recentActivities && recentActivities.length > 0) { %>
+                    <% recentActivities.forEach(activity => { %>
+                        <li class="profile-list-item"><%= activity.description %></li>
+                    <% }); %>
+                <% } else { %>
+                    <li class="profile-list-item">No recent activity.</li>
+                <% } %>
+            </ul>
+        </section>
+
+        <section class="profile-card todays-recommendations-card">
+            <h2>Today's Recommendations</h2>
+            <ul class="profile-list">
+                <% if (todaysRecommendations && todaysRecommendations.length > 0) { %>
+                    <% todaysRecommendations.forEach(recommendation => { %>
+                        <li class="profile-list-item">
+                            <a href="/recipes/<%= recommendation.Recipe.id %>"><%= recommendation.Recipe.title %></a>
+                        </li>
+                    <% }); %>
+                <% } else { %>
+                    <li class="profile-list-item">No recommendations for today.</li>
+                <% } %>
+            </ul>
+        </section>
+    </section>
+    </main>
     <footer>
         <p>&copy; 2024 Recipe System. All rights reserved.</p>
     </footer>

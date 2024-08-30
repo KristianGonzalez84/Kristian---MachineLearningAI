@@ -7,24 +7,30 @@
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/navbar.css">
     <link rel="stylesheet" href="/stylesheets/register.css">
+    <link rel="stylesheet" href="/stylesheets/background.css"> <!-- Add this line -->
 </head>
 <body>
     <!-- Include the navbar partial -->
     <%- include('partials/navbar') %>
-    
-    <div class="register-container">
-        <h1>Register</h1>
-        <% if (error) { %>
-            <p class="error"><%= error %></p>
-        <% } %>
-        <form action="/register" method="POST">
-            <input type="text" name="name" placeholder="Name" required autocomplete="name">
-            <input type="text" name="username" placeholder="Username" required autocomplete="username">
-            <input type="password" name="password" placeholder="Password" required autocomplete="new-password">
-            <button type="submit">Register</button>
-        </form>
-        <p>Already have an account? <a href="/login">Login here</a></p>
+
+    <main>
+    <!-- Apply the background class to this div -->
+    <div class="background">
+        <div class="register-container">
+            <h1>Register</h1>
+            <% if (error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+            <form action="/register" method="POST">
+                <input type="text" name="name" placeholder="Name" required autocomplete="name">
+                <input type="text" name="username" placeholder="Username" required autocomplete="username">
+                <input type="password" name="password" placeholder="Password" required autocomplete="new-password">
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a href="/login">Login here</a></p>
+        </div>
     </div>
+    </main>
 
     <footer>
         <p>&copy; 2024 Recipe System. All rights reserved.</p>
