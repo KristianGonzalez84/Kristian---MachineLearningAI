@@ -7,9 +7,18 @@ const searchService = {
         try {
             return await Recipe.findAll({
                 where: {
-                    title: {
-                        [Op.like]: `%${keyword}%`
-                    }
+                    [Op.or]: [
+                        {
+                            title: {
+                                [Op.like]: `%${keyword}%`
+                            }
+                        },
+                        {
+                            ingredients: {
+                                [Op.like]: `%${keyword}%`
+                            }
+                        }
+                    ]
                 }
             });
         } catch (error) {

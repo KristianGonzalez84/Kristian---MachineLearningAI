@@ -1,4 +1,5 @@
 const db = require('../models');
+const { Favorite, User, Recipe } = db;
 
 const recipeService = {
     // Get all recipes that are not marked as deleted
@@ -65,6 +66,53 @@ const recipeService = {
         } catch (error) {
             console.error(`Error deleting recipe with ID ${recipeId}:`, error);
             throw new Error('Unable to delete recipe');
+        }
+    },
+
+    // Add a recipe to a user's favorites
+    addFavorite: async (recipeId, userId) => {
+        try {
+            // Ensure both recipe and user exist
+            const recipe = await Recipe.findByPk(recipeId);
+            const user = await User.findByPk(userId);
+
+            if (!recipe || !user) {
+                throw new Error('Recipe or User not found');
+            }
+
+            // Check if the recipe is already in favorites
+            const existingFavorite = await Favorite.findOne({
+                where: { userId, recipeId }
+            });
+
+            if (existingFavorite) {
+                throw new Error('Recipe already marked as favorite');
+            }
+
+            await Favorite.create({ userId, recipeId });
+            return { message: 'Recipe added to favorites' };
+        } catch (error) {
+            console.error(`Error adding recipe ${recipeId} to favorites:`, error);
+            throw new Error('Unable to add recipe to favorites');
+        }
+    },
+
+    // Remove a recipe from a user's favorites
+    removeFavorite: async (recipeId, userId) => {
+        try {
+            const favorite = await Favorite.findOne({
+                where: { userId, recipeId }
+            });
+
+            if (!favorite) {
+                throw new Error('Recipe not found in favorites');
+            }
+
+            await favorite.destroy();
+            return { message: 'Recipe removed from favorites' };
+        } catch (error) {
+            console.error(`Error removing recipe ${recipeId} from favorites:`, error);
+            throw new Error('Unable to remove recipe from favorites');
         }
     }
 };

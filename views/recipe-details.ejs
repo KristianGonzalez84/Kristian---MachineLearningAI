@@ -7,7 +7,8 @@
     <!-- Add any CSS links here -->
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/navbar.css">
-    <link rel="stylesheet" href="/stylesheets/background.css"> <!-- Include the background.css stylesheet -->
+    <link rel="stylesheet" href="/stylesheets/background.css">
+    <link rel="stylesheet" href="/stylesheets/details-button.css">
 </head>
 <body>
     <!-- Include the navbar partial -->
@@ -20,6 +21,27 @@
                 <h2><%= recipe.title %></h2>
                 <p>Ingredients: <%= recipe.ingredients %></p>
                 <p>Steps: <%= recipe.steps %></p>
+                
+                <!-- Buttons for liking, disliking, and saving the recipe -->
+                <div class="action-buttons">
+                    <form action="/recipes/<%= recipe.id %>/like" method="POST">
+                    <button type="submit" class="btn btn-like">Like</button>
+                </form>
+                    <form action="/recipes/<%= recipe.id %>/dislike" method="POST">
+                    <button type="submit" class="btn btn-dislike">Dislike</button>
+                </form>
+                <form action="/recipes/<%= recipe.id %>/save" method="POST">
+                    <button type="submit" class="btn btn-save">Save</button>
+                </form>
+
+                <!-- Favourites -->
+                <form action="/recipes/<%= recipe.id %>/favorite" method="POST">
+                    <button type="submit">Favorite</button>
+                </form>
+                
+                <form action="/recipes/<%= recipe.id %>/unfavorite" method="POST">
+                    <button type="submit">Unfavorite</button>
+                </form>
             </div>
         </section>
     </main>

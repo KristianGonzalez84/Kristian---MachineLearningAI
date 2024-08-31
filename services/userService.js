@@ -18,22 +18,13 @@ const userService = {
     },
 
     authenticateUser: async (username, password) => {
-        try {
-            const user = await User.findOne({ where: { username } });
-            console.log('User found:', user); // Debugging line
-            if (!user) {
-                throw new Error('Incorrect username or password');
-            }
-    
-            // Check password directly
-            if (password !== user.password) {
-                console.log('Password check failed. Provided:', password, 'Stored:', user.password); // Debugging line
-                throw new Error('Incorrect username or password');
-            }
-    
+        // Find user by username
+        const user = await User.findOne({ where: { username } });
+
+        if (user && user.password === password) {  // Replace with hashed password comparison
             return user;
-        } catch (error) {
-            throw error;
+        } else {
+            throw new Error('Invalid username or password');
         }
     },
 

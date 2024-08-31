@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
             return res.status(500).send('Internal Server Error');
         }
         // Redirect to the main page after logout
-        res.redirect('/');
+        res.redirect('/login');
     });
 });
 

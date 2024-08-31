@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
 // Handle search functionality
 router.post('/', async (req, res) => {
-    const keyword = req.body.keyword.trim(); // Trim whitespace
+    const keyword = req.body.keyword.trim();
 
     // Basic validation
     if (!keyword) {

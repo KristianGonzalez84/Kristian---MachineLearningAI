@@ -181,6 +181,22 @@ main {
 .recipes-container ul li a:focus {
   outline: none; /* Remove focus outline */
 }
+
+/* Search links */
+ul li a {
+  color: orange;
+  text-decoration: underline;
+  font-weight: bold; /* Make the text bold for better visibility */
+}
+
+ul li a:visited {
+  color: orange; /* Ensure visited links remain white */
+}
+
+ul li a:focus {
+  outline: none; /* Remove focus outline */
+}
+
 /**********************/
 
 @media (max-width: 768px) {

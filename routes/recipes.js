@@ -65,4 +65,77 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+// Buttons 'like','dislike' and 'save'
+// Handle "like" button click
+router.post('/:id/like', async (req, res) => {
+    const recipeId = req.params.id;
+    try {
+        // Logic to handle "like" (e.g., update database, user profile, etc.)
+        console.log(`Recipe ${recipeId} liked`);
+        res.redirect(`/recipes/${recipeId}`);
+    } catch (error) {
+        console.error('Error liking recipe:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Handle "dislike" button click
+router.post('/:id/dislike', async (req, res) => {
+    const recipeId = req.params.id;
+    try {
+        // Logic to handle "dislike" (e.g., update database, user profile, etc.)
+        console.log(`Recipe ${recipeId} disliked`);
+        res.redirect(`/recipes/${recipeId}`);
+    } catch (error) {
+        console.error('Error disliking recipe:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Handle "save" button click
+router.post('/:id/save', async (req, res) => {
+    const recipeId = req.params.id;
+    try {
+        // Logic to handle "save" (e.g., add recipe to user's saved list)
+        console.log(`Recipe ${recipeId} saved`);
+        res.redirect(`/recipes/${recipeId}`);
+    } catch (error) {
+        console.error('Error saving recipe:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Favourites //
+router.post('/:id/favorite', async (req, res) => {
+    const recipeId = req.params.id;
+    const user = req.session.user;
+
+    if (!user) {
+        return res.status(401).send('User not authenticated');
+    }
+
+    try {
+        await recipeService.addFavorite(recipeId, user.id);
+        res.redirect(`/recipes/${recipeId}`);
+    } catch (error) {
+        console.error('Error adding recipe to favorites:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Remove from favorites
+router.post('/:id/unfavorite', async (req, res) => {
+    const recipeId = req.params.id;
+    const userId = req.session.user.id; // Assuming user ID is stored in session
+
+    try {
+        await recipeService.removeFavorite(recipeId, userId);
+        res.redirect(`/recipes/${recipeId}`);
+    } catch (error) {
+        console.error('Error removing recipe from favorites:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 module.exports = router;
