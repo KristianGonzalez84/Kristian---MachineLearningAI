@@ -7,26 +7,25 @@ const { User, Favorite, Recipe, RecentActivity, TodaysRecommendation } = require
 
 router.get('/', isAuthenticated, async (req, res) => {
     try {
-        console.log('Profile route accessed');
         const userId = req.session.userId;
 
         // Fetch user
         const user = await userService.findUserById(userId);
         if (!user) {
-            return res.redirect('/login'); // Redirect to login if user not found
+            return res.redirect('/login');
         }
 
         // Fetch favorite recipes
         const favorites = await Recipe.findAll({
             include: {
                 model: Favorite,
-                where: { userId: user.id }
+                where: { userId }
             }
         });
 
         // Fetch recent activities
         const recentActivities = await RecentActivity.findAll({ 
-            where: { userId: user.id },
+            where: { userId },
             order: [['timestamp', 'DESC']],
             limit: 10 // Fetch latest 10 activities
         });

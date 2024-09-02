@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/navbar.css">
     <link rel="stylesheet" href="/stylesheets/profile.css">
-    <link rel="stylesheet" href="/stylesheets/background.css"> <!-- Add this line -->
+    <link rel="stylesheet" href="/stylesheets/background.css">
 </head>
 <body class="profile-page">
     <!-- Include the navbar partial -->
@@ -22,50 +22,93 @@
         </div>
     </section>
 
-    <!-- Profile Cards Layout -->
+    <!-- Favorites Section -->
     <section class="profile-cards">
         <section class="profile-card favorite-recipes-card">
             <h2>Your Favorite Recipes</h2>
             <ul class="profile-list">
                 <% if (favorites && favorites.length > 0) { %>
                     <% favorites.forEach(recipe => { %>
-                        <li class="profile-list-item"><a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a></li>
+                        <li class="profile-list-item">
+                            <a href="/recipes/<%= recipe.id %>"><%= recipe.title %></a>
+                            <!-- Unfavorite Button -->
+                            <form action="/recipes/<%= recipe.id %>/unfavorite" method="POST" class="unfavorite-form" data-recipe-id="<%= recipe.id %>" style="display:inline;">
+                                <button type="submit" class="unfavorite-button">Unfavorite</button>
+                            </form>
+                        </li>
                     <% }); %>
                 <% } else { %>
                     <li class="profile-list-item">You have no favorite recipes.</li>
                 <% } %>
             </ul>
         </section>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get all unfavorite forms
+            const unfavoriteForms = document.querySelectorAll('.unfavorite-form');
+            
+            unfavoriteForms.forEach(form => {
+                form.addEventListener('submit', async (event) => {
+                    event.preventDefault(); // Prevent the default form submission
+                    
+                    const formData = new FormData(form);
+                    
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        });
+                        
+                        if (response.ok) {
+                            // Successfully unfavorite, remove the recipe from the list
+                            const listItem = form.closest('li');
+                            listItem.remove();
+                        } else {
+                            console.error('Error unfavoriting recipe:', await response.text());
+                        }
+                    } catch (error) {
+                        console.error('Error unfavoriting recipe:', error);
+                    }
+                });
+            });
+        });
+    </script>
 
-        <section class="profile-card recent-activity-card">
-            <h2>Recent Activity</h2>
-            <ul class="profile-list">
-                <% if (recentActivities && recentActivities.length > 0) { %>
-                    <% recentActivities.forEach(activity => { %>
-                        <li class="profile-list-item"><%= activity.description %></li>
-                    <% }); %>
-                <% } else { %>
-                    <li class="profile-list-item">No recent activity.</li>
-                <% } %>
-            </ul>
-        </section>
+    <!-- Recent Activity Section -->
+    <section class="profile-card recent-activity-card">
+        <h2>Recent Activity</h2>
+        <ul class="profile-list">
+            <% if (recentActivities && recentActivities.length > 0) { %>
+                <% recentActivities.forEach(activity => { %>
+                    <li class="profile-list-item"><%= activity.description %></li>
+                <% }); %>
+            <% } else { %>
+                <li class="profile-list-item">No recent activity.</li>
+            <% } %>
+        </ul>
+    </section>
 
-        <section class="profile-card todays-recommendations-card">
-            <h2>Today's Recommendations</h2>
-            <ul class="profile-list">
-                <% if (todaysRecommendations && todaysRecommendations.length > 0) { %>
-                    <% todaysRecommendations.forEach(recommendation => { %>
+    <!-- Today's Recommendations Section -->
+    <section class="profile-card todays-recommendations-card">
+        <h2>Today's Recommendations</h2>
+        <ul class="profile-list">
+            <% if (todaysRecommendations && todaysRecommendations.length > 0) { %>
+                <% todaysRecommendations.forEach(recommendation => { %>
+                    <% if (recommendation.Recipe) { %>
                         <li class="profile-list-item">
                             <a href="/recipes/<%= recommendation.Recipe.id %>"><%= recommendation.Recipe.title %></a>
                         </li>
-                    <% }); %>
-                <% } else { %>
-                    <li class="profile-list-item">No recommendations for today.</li>
-                <% } %>
-            </ul>
-        </section>
+                    <% } %>
+                <% }); %>
+            <% } else { %>
+                <li class="profile-list-item">No recommendations for today.</li>
+            <% } %>
+        </ul>
     </section>
-    </main>
+</section>
+</main>
     <footer>
         <p>&copy; 2024 Recipe System. All rights reserved.</p>
     </footer>

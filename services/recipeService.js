@@ -72,12 +72,17 @@ const recipeService = {
     // Add a recipe to a user's favorites
     addFavorite: async (recipeId, userId) => {
         try {
+            console.log(`Adding favorite: recipeId = ${recipeId}, userId = ${userId}`);
+
             // Ensure both recipe and user exist
             const recipe = await Recipe.findByPk(recipeId);
             const user = await User.findByPk(userId);
 
-            if (!recipe || !user) {
-                throw new Error('Recipe or User not found');
+            if (!recipe) {
+                throw new Error('Recipe not found');
+            }
+            if (!user) {
+                throw new Error('User not found');
             }
 
             // Check if the recipe is already in favorites
@@ -105,13 +110,14 @@ const recipeService = {
             });
 
             if (!favorite) {
-                throw new Error('Recipe not found in favorites');
+                // Return a specific message instead of throwing an error
+                return { message: 'Recipe not found in favorites' };
             }
 
             await favorite.destroy();
             return { message: 'Recipe removed from favorites' };
         } catch (error) {
-            console.error(`Error removing recipe ${recipeId} from favorites:`, error);
+            console.error(`Error removing recipe ${recipeId} from favorites:`, error.message);
             throw new Error('Unable to remove recipe from favorites');
         }
     }

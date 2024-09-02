@@ -70,3 +70,17 @@
 .profile-page .profile-list li.profile-list-item a:hover {
     text-decoration: underline;
 }
+
+.unfavorite-button {
+    margin-left: 10px; /* Adds space between the link and the button */
+    background-color: #ff6b6b; /* A distinct color for unfavoriting */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.unfavorite-button:hover {
+    background-color: #ff4949;
+}

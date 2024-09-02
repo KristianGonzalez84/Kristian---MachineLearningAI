@@ -30,18 +30,12 @@
                     <form action="/recipes/<%= recipe.id %>/dislike" method="POST">
                     <button type="submit" class="btn btn-dislike">Dislike</button>
                 </form>
-                <form action="/recipes/<%= recipe.id %>/save" method="POST">
-                    <button type="submit" class="btn btn-save">Save</button>
-                </form>
 
                 <!-- Favourites -->
                 <form action="/recipes/<%= recipe.id %>/favorite" method="POST">
-                    <button type="submit">Favorite</button>
+                    <button type="submit" class="btn btn-favourite">Favorite</button>
                 </form>
                 
-                <form action="/recipes/<%= recipe.id %>/unfavorite" method="POST">
-                    <button type="submit">Unfavorite</button>
-                </form>
             </div>
         </section>
     </main>

@@ -92,48 +92,50 @@ router.post('/:id/dislike', async (req, res) => {
     }
 });
 
-// Handle "save" button click
-router.post('/:id/save', async (req, res) => {
-    const recipeId = req.params.id;
-    try {
-        // Logic to handle "save" (e.g., add recipe to user's saved list)
-        console.log(`Recipe ${recipeId} saved`);
-        res.redirect(`/recipes/${recipeId}`);
-    } catch (error) {
-        console.error('Error saving recipe:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
 // Favourites //
 router.post('/:id/favorite', async (req, res) => {
+    const userId = req.session.userId;
     const recipeId = req.params.id;
-    const user = req.session.user;
 
-    if (!user) {
-        return res.status(401).send('User not authenticated');
-    }
+    console.log(`User ID: ${userId}, Recipe ID: ${recipeId}`); // Log IDs for debugging
 
     try {
-        await recipeService.addFavorite(recipeId, user.id);
-        res.redirect(`/recipes/${recipeId}`);
+        // Add the favorite
+        await recipeService.addFavorite(recipeId, userId);
+        res.redirect(`/recipes/${recipeId}`); // Redirect to the recipe page or any other desired page
     } catch (error) {
-        console.error('Error adding recipe to favorites:', error);
-        res.status(500).send('Internal Server Error');
+        if (error.message === 'Recipe already marked as favorite') {
+            // Handle the case where the recipe is already a favorite
+            console.log('Recipe is already a favorite');
+            res.redirect(`/recipes/${recipeId}`); // Redirect with a message, or handle it another way
+        } else {
+            console.error('Error adding recipe to favorites:', error.message);
+            res.status(500).render('error', { message: 'Unable to add recipe to favorites', user: req.session.user });
+        }
     }
 });
 
 // Remove from favorites
 router.post('/:id/unfavorite', async (req, res) => {
+    const userId = req.session.userId;
     const recipeId = req.params.id;
-    const userId = req.session.user.id; // Assuming user ID is stored in session
 
     try {
         await recipeService.removeFavorite(recipeId, userId);
-        res.redirect(`/recipes/${recipeId}`);
+        
+        // Respond to AJAX request
+        if (req.xhr) {
+            res.status(200).send('Successfully removed from favorites');
+        } else {
+            res.redirect(`/recipes/${recipeId}`);
+        }
     } catch (error) {
-        console.error('Error removing recipe from favorites:', error);
-        res.status(500).send('Internal Server Error');
+        console.error('Error removing recipe from favorites:', error.message);
+        if (req.xhr) {
+            res.status(500).send('Unable to remove from favorites');
+        } else {
+            res.status(500).render('error', { message: 'Unable to remove recipe from favorites', user: req.session.user });
+        }
     }
 });
 

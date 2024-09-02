@@ -40,19 +40,23 @@ fs.readdirSync(__dirname)
 // Define model associations
 const { User, Recipe, Favorite, RecentActivity, TodaysRecommendation } = db;
 
+// User to Favorite association
 User.hasMany(Favorite, { foreignKey: 'userId' });
 Favorite.belongsTo(User, { foreignKey: 'userId' });
 
-User.hasMany(RecentActivity, { foreignKey: 'userId' });
-RecentActivity.belongsTo(User, { foreignKey: 'userId' });
-
+// Recipe to Favorite association
 Recipe.hasMany(Favorite, { foreignKey: 'recipeId' });
 Favorite.belongsTo(Recipe, { foreignKey: 'recipeId' });
 
-// Associations for TodaysRecommendation
+// User to RecentActivity association
+User.hasMany(RecentActivity, { foreignKey: 'userId' });
+RecentActivity.belongsTo(User, { foreignKey: 'userId' });
+
+// User to TodaysRecommendation association
 User.hasMany(TodaysRecommendation, { foreignKey: 'userId' });
 TodaysRecommendation.belongsTo(User, { foreignKey: 'userId' });
 
+// Recipe to TodaysRecommendation association
 Recipe.hasMany(TodaysRecommendation, { foreignKey: 'recipeId' });
 TodaysRecommendation.belongsTo(Recipe, { foreignKey: 'recipeId' });
 
